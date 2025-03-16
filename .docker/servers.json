@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "F3D Manager DB",
+      "Group": "Servers",
+      "Host": "db",
+      "Port": 5432,
+      "MaintenanceDB": "f3d_manager",
+      "Username": "admin",
+      "Password": "admin",
+      "SSLMode": "prefer",
+      "ConnectNow": true
+    }
+  }
+}

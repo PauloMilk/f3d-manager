@@ -15,6 +15,7 @@ A simple web system for managing 3D printing filaments. Track available stock, l
 - **Frontend:** Thymeleaf + Bootstrap
 - **Database:** PostgreSQL (or H2 for testing)
 - **Build Tool:** Gradle with Kotlin DSL
+- **Containerization:** Docker & Docker Compose
 
 ---
 
@@ -24,18 +25,40 @@ A simple web system for managing 3D printing filaments. Track available stock, l
 ```bash
 git clone https://github.com/PauloMilk/f3d-manager.git
 cd f3d-manager
-
 ```
 
-### 2️⃣ Configure the database:
-- Update `application.yml` with your **PostgreSQL** settings or use **H2** for a quick test.
+### 2️⃣ Run the database using Docker Compose:
+```bash
+docker-compose up -d
+```
+This will start a **PostgreSQL** container along with **pgAdmin** for database management.
+- PostgreSQL will be available at `localhost:5432`
+- pgAdmin can be accessed at [http://localhost:5050](http://localhost:5050)
+  - **Email:** admin@admin.com
+  - **Password:** admin
 
-### 3️⃣ Build and run the project:
+### 3️⃣ Configure the database in `application.yml`:
+```yaml
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/f3d_manager
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+```
+
+### 4️⃣ Build and run the project:
 ```bash
 ./gradlew bootRun
 ```
 
-### 4️⃣ Access the application:
+### 5️⃣ Access the application:
 - Open your browser and go to:  
   `http://localhost:8080`
 
