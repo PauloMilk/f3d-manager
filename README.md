@@ -1,21 +1,28 @@
 # 🎨 f3d-manager
 
-A simple web system for managing 3D printing filaments. Track available stock, log filament consumption, and monitor costs efficiently. Built with **Spring Boot, Thymeleaf, and Kotlin**.
-
-## 🚀 Features
-- Register and manage 3D printing filaments (brand, type, color, weight, cost).
-- Track filament consumption in a **non-granular way**.
-- View a list of available filaments and remaining stock.
-- Simple and lightweight web-based interface.
+A **web-based system** for managing **3D printing filaments**, built with **Spring Boot, Thymeleaf, and Kotlin**.  
+Easily **track available stock, log filament consumption**, and **monitor costs** with a simple and lightweight interface.
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Features
+✅ Register and manage 3D printing filaments (brand, type, color, weight, cost).  
+✅ Track filament consumption in a **non-granular way**.  
+✅ Record **filament purchases** to update stock dynamically.  
+✅ View a list of available filaments and **remaining stock**.  
+✅ Manage **brands, filament types, and colors**.  
+✅ **Multi-language support (English 🇺🇸 | Portuguese 🇧🇷)**.  
+✅ Simple and intuitive **Bootstrap-based UI**.
+
+---
+
+## 🏗 Tech Stack
 - **Backend:** Spring Boot (Kotlin)
 - **Frontend:** Thymeleaf + Bootstrap
 - **Database:** PostgreSQL (or H2 for testing)
 - **Build Tool:** Gradle with Kotlin DSL
 - **Containerization:** Docker & Docker Compose
+- **Internationalization:** Spring Boot i18n (English 🇺🇸 | Portuguese 🇧🇷)
 
 ---
 
@@ -64,16 +71,22 @@ spring:
 
 ---
 
+## 🌍 Multi-Language Support
+F3D Manager supports **multiple languages** (English 🇺🇸 | Portuguese 🇧🇷).  
+The language can be changed dynamically via the **dropdown** at the top of the page.
+
+---
+
 ## 📸 Screenshots (Optional)
 _Add some images here to showcase the UI._
 
 ---
 
 ## 📌 Roadmap (Future Enhancements)
-- [ ] Implement a notification system for low stock.
-- [ ] Add advanced filtering and sorting options.
-- [ ] Improve UI with Tailwind or Bootstrap.
-- [ ] Support for multiple users (authentication).
+- [ ] Implement a notification system for **low stock alerts**.
+- [ ] Add **filtering and sorting** options for filaments.
+- [ ] Enhance UI with **Tailwind or Bootstrap improvements**.
+- [ ] Support for **multiple users (authentication & roles)**.
 
 ---
 
