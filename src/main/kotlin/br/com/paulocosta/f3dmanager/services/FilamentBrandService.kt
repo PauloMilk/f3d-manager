@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service
 class FilamentBrandService(private val filamentBrandRepository: FilamentBrandRepository) {
     fun getAllBrands(): List<FilamentBrand> = filamentBrandRepository.findAll()
 
-    fun createBrand(brand: FilamentBrand) {
+    fun createBrand(brand: FilamentBrand): FilamentBrand {
         if (filamentBrandRepository.existsByName(brand.name)) {
             throw IllegalArgumentException("Brand already exists!")
         }
-        filamentBrandRepository.save(brand)
+        return filamentBrandRepository.save(brand)
     }
 
     fun deleteBrand(id: Int) {

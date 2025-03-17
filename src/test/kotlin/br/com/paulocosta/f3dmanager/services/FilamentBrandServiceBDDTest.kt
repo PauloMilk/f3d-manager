@@ -55,11 +55,11 @@ class FilamentBrandServiceBDDTest {
         filamentBrandService.createBrand(FilamentBrand(name = "Prusa"))
 
         // When: Tentamos criar a mesma marca novamente
-        val exception = org.junit.jupiter.api.assertThrows<org.springframework.dao.DataIntegrityViolationException> {
+        val exception = org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             filamentBrandService.createBrand(FilamentBrand(name = "Prusa"))
         }
 
         // Then: Deve lançar uma exceção indicando violação de UNIQUE constraint
-        assertThat(exception.message).contains("constraint")
+        assertThat(exception.message).contains("Brand already exists!")
     }
 }

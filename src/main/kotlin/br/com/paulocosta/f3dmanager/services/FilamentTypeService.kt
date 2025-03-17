@@ -14,11 +14,11 @@ class FilamentTypeService(private val filamentTypeRepository: FilamentTypeReposi
         }
     }
 
-    fun createType(type: FilamentType) {
+    fun createType(type: FilamentType): FilamentType {
         if (filamentTypeRepository.existsByName(type.name)) {
             throw IllegalArgumentException("Type already exists!")
         }
-        filamentTypeRepository.save(type)
+        return filamentTypeRepository.save(type)
     }
 
     fun deleteType(id: Int) {

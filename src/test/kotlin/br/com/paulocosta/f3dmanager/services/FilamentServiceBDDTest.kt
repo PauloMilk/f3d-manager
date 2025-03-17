@@ -103,7 +103,7 @@ class FilamentServiceBDDTest {
         }
 
         // Then: Deve lançar uma exceção com a mensagem correta
-        assertThat(exception).hasMessage("Not enough filament available")
+        assertThat(exception).hasMessage("Not enough filament available!")
     }
 
     @Test

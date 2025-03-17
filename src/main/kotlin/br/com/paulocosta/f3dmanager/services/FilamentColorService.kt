@@ -14,11 +14,11 @@ class FilamentColorService(private val filamentColorRepository: FilamentColorRep
         }
     }
 
-    fun createColor(color: FilamentColor) {
+    fun createColor(color: FilamentColor): FilamentColor {
         if (filamentColorRepository.existsByName(color.name)) {
             throw IllegalArgumentException("Color already exists!")
         }
-        filamentColorRepository.save(color)
+        return filamentColorRepository.save(color)
     }
 
     fun deleteColor(id: Int) {

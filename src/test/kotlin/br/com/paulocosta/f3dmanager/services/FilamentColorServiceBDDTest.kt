@@ -55,11 +55,11 @@ class FilamentColorServiceBDDTest {
         filamentColorService.createColor(FilamentColor(name = "Red"))
 
         // When: Tentamos criar a mesma cor novamente
-        val exception = org.junit.jupiter.api.assertThrows<org.springframework.dao.DataIntegrityViolationException> {
+        val exception = org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             filamentColorService.createColor(FilamentColor(name = "Red"))
         }
 
         // Then: Deve lançar uma exceção indicando violação de UNIQUE constraint
-        assertThat(exception.message).contains("constraint")
+        assertThat(exception.message).contains("Color already exists!")
     }
 }

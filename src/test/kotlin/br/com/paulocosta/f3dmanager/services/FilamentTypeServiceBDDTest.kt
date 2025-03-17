@@ -55,11 +55,11 @@ class FilamentTypeServiceBDDTest {
         filamentTypeService.createType(FilamentType(name = "PLA"))
 
         // When: Tentamos criar o mesmo tipo novamente
-        val exception = org.junit.jupiter.api.assertThrows<org.springframework.dao.DataIntegrityViolationException> {
+        val exception = org.junit.jupiter.api.assertThrows<IllegalArgumentException> {
             filamentTypeService.createType(FilamentType(name = "PLA"))
         }
 
         // Then: Deve lançar uma exceção indicando violação de UNIQUE constraint
-        assertThat(exception.message).contains("constraint")
+        assertThat(exception.message).contains("Type already exists!")
     }
 }
