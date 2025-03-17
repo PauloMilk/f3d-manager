@@ -24,13 +24,13 @@ data class Filament(
     val color: FilamentColor,
 
     @Column(name = "vl_total_weight", nullable = false)
-    val totalWeight: Int,  // Weight in grams
+    var totalWeight: Int,  // Weight in grams
 
     @Column(name = "vl_remaining_weight", nullable = false)
     var remainingWeight: Int,  // Updated when consuming filament
 
     @Column(name = "vl_cost", nullable = true)
-    val cost: BigDecimal? = null,
+    var cost: BigDecimal? = null,
 
     @Column(name = "dt_purchase")
     val purchaseDate: LocalDate? = null

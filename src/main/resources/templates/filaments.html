@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{filament.list.title}">Lista de Filamentos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+<h1 class="text-center" th:text="#{filament.list.title}">Lista de Filamentos</h1>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="/filaments/new" class="btn btn-primary" th:text="#{button.addFilament}">Adicionar Novo Filamento</a>
+    <a href="/" class="btn btn-secondary" th:text="#{button.back}">Voltar</a>
+</div>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th th:text="#{filament.brand}">Marca</th>
+        <th th:text="#{filament.type}">Tipo</th>
+        <th th:text="#{filament.color}">Cor</th>
+        <th th:text="#{filament.totalWeight}">Peso Total</th>
+        <th th:text="#{filament.remainingWeight}">Peso Restante</th>
+        <th th:text="#{filament.actions}">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="filament : ${filaments}">
+        <td th:text="${filament.id}"></td>
+        <td th:text="${filament.brand.name}"></td>
+        <td th:text="${filament.type.name}"></td>
+        <td th:text="${filament.color.name}"></td>
+        <td th:text="${filament.totalWeight} + 'g'"></td>
+        <td th:text="${filament.remainingWeight} + 'g'"></td>
+        <td>
+            <a th:href="@{/filaments/edit/{id}(id=${filament.id})}" class="btn btn-warning btn-sm" th:text="#{button.edit}">Editar</a>
+            <a th:href="@{/filaments/delete/{id}(id=${filament.id})}" class="btn btn-danger btn-sm"
+               th:attr="onclick='return confirm(\'' + #{filament.confirmDelete} + '\');'"
+               th:text="#{button.delete}">Excluir</a>
+            <a th:href="@{/filaments/consume/{id}(id=${filament.id})}" class="btn btn-info btn-sm" th:text="#{button.consume}">Registrar Consumo</a>
+            <a th:href="@{/filaments/purchase/{id}(id=${filament.id})}" class="btn btn-success btn-sm" th:text="#{button.purchase}">Registrar Compra</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

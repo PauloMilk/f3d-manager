@@ -8,6 +8,23 @@ import org.springframework.stereotype.Service
 class FilamentTypeService(private val filamentTypeRepository: FilamentTypeRepository) {
     fun getAllTypes(): List<FilamentType> = filamentTypeRepository.findAll()
 
-    fun createType(type: FilamentType): FilamentType =
+    fun getTypeById(id: Int): FilamentType {
+        return filamentTypeRepository.findById(id).orElseThrow {
+            throw RuntimeException("Type not found with id: $id")
+        }
+    }
+
+    fun createType(type: FilamentType) {
+        if (filamentTypeRepository.existsByName(type.name)) {
+            throw IllegalArgumentException("Type already exists!")
+        }
         filamentTypeRepository.save(type)
+    }
+
+    fun deleteType(id: Int) {
+        if (!filamentTypeRepository.existsById(id)) {
+            throw RuntimeException("Type not found!")
+        }
+        filamentTypeRepository.deleteById(id)
+    }
 }

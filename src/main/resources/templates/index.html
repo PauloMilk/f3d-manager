@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{app.title}">Gerenciador de Filamentos 3D</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+<!-- Seletor de Idioma -->
+<div class="text-end mb-3">
+    <label class="me-2" th:text="#{language.select}">Selecionar idioma:</label>
+    <select class="form-select d-inline w-auto" onchange="changeLanguage(this.value)">
+        <option value="pt" th:selected="${#locale.language == 'pt'}">🇧🇷 Português</option>
+        <option value="en" th:selected="${#locale.language == 'en'}">🇺🇸 English</option>
+    </select>
+</div>
+
+<h1 class="text-center mb-4" th:text="#{app.title}">Gerenciador de Filamentos 3D</h1>
+
+<div class="row">
+    <!-- Gerenciar Filamentos -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow text-center p-3">
+            <h5 class="card-title" th:text="#{menu.filaments}">Filamentos</h5>
+            <p class="card-text" th:text="#{menu.filaments.desc}">Gerencie seus filamentos cadastrados.</p>
+            <a href="/filaments" class="btn btn-primary" th:text="#{button.access}">Acessar</a>
+        </div>
+    </div>
+
+    <!-- Gerenciar Marcas -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow text-center p-3">
+            <h5 class="card-title" th:text="#{menu.brands}">Marcas</h5>
+            <p class="card-text" th:text="#{menu.brands.desc}">Gerencie as marcas de filamento.</p>
+            <a href="/brands" class="btn btn-secondary" th:text="#{button.access}">Acessar</a>
+        </div>
+    </div>
+
+    <!-- Gerenciar Tipos -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow text-center p-3">
+            <h5 class="card-title" th:text="#{menu.types}">Tipos</h5>
+            <p class="card-text" th:text="#{menu.types.desc}">Gerencie os tipos de filamento.</p>
+            <a href="/types" class="btn btn-warning" th:text="#{button.access}">Acessar</a>
+        </div>
+    </div>
+
+    <!-- Gerenciar Cores -->
+    <div class="col-md-6 col-lg-3">
+        <div class="card shadow text-center p-3">
+            <h5 class="card-title" th:text="#{menu.colors}">Cores</h5>
+            <p class="card-text" th:text="#{menu.colors.desc}">Gerencie as cores dos filamentos.</p>
+            <a href="/colors" class="btn btn-info" th:text="#{button.access}">Acessar</a>
+        </div>
+    </div>
+</div>
+
+<!-- Seção de Resumo -->
+<div class="mt-5">
+    <h3 class="text-center" th:text="#{summary.title}">Resumo Rápido</h3>
+    <table class="table table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th th:text="#{summary.totalFilaments}">Total de Filamentos</th>
+            <th th:text="#{summary.totalWeight}">Peso Total (g)</th>
+            <th th:text="#{summary.remainingWeight}">Peso Restante (g)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${totalFilaments}"></td>
+            <td th:text="${totalWeight} + 'g'"></td>
+            <td th:text="${remainingWeight} + 'g'"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function changeLanguage(lang) {
+        fetch('/api/locale/change', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `lang=${lang}`
+        }).then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                location.reload(); // Recarrega apenas os textos traduzidos
+            })
+            .catch(error => console.error('Erro ao trocar idioma:', error));
+    }
+</script>
+</body>
+</html>

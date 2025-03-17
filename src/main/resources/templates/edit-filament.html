@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar Filamento</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Editar Filamento</h1>
+<form th:action="@{/filaments/update}" method="post">
+    <input type="hidden" name="id" th:value="${filament.id}">
+
+    <label>Marca:</label>
+    <select name="brandId" required>
+        <option th:each="brand : ${brands}" th:value="${brand.id}" th:text="${brand.name}"
+                th:selected="${brand.id == filament.brand.id}"></option>
+    </select>
+    <br>
+
+    <label>Tipo:</label>
+    <select name="typeId" required>
+        <option th:each="type : ${types}" th:value="${type.id}" th:text="${type.name}"
+                th:selected="${type.id == filament.type.id}"></option>
+    </select>
+    <br>
+
+    <label>Cor:</label>
+    <select name="colorId" required>
+        <option th:each="color : ${colors}" th:value="${color.id}" th:text="${color.name}"
+                th:selected="${color.id == filament.color.id}"></option>
+    </select>
+    <br>
+
+    <p><strong>Peso Total:</strong> <span th:text="${filament.totalWeight} + 'g'"></span></p>
+    <p><strong>Peso Restante:</strong> <span th:text="${filament.remainingWeight} + 'g'"></span></p>
+
+    <button type="submit">Salvar Alterações</button>
+</form>
+</body>
+</html>

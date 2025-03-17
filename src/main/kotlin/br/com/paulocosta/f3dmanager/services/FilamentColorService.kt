@@ -8,6 +8,23 @@ import org.springframework.stereotype.Service
 class FilamentColorService(private val filamentColorRepository: FilamentColorRepository) {
     fun getAllColors(): List<FilamentColor> = filamentColorRepository.findAll()
 
-    fun createColor(color: FilamentColor): FilamentColor =
+    fun getColorById(id: Int): FilamentColor {
+        return filamentColorRepository.findById(id).orElseThrow {
+            throw RuntimeException("Color not found with id: $id")
+        }
+    }
+
+    fun createColor(color: FilamentColor) {
+        if (filamentColorRepository.existsByName(color.name)) {
+            throw IllegalArgumentException("Color already exists!")
+        }
         filamentColorRepository.save(color)
+    }
+
+    fun deleteColor(id: Int) {
+        if (!filamentColorRepository.existsById(id)) {
+            throw RuntimeException("Color not found!")
+        }
+        filamentColorRepository.deleteById(id)
+    }
 }

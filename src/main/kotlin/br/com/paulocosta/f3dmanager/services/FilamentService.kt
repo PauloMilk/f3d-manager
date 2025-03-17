@@ -6,6 +6,7 @@ import br.com.paulocosta.f3dmanager.repositories.FilamentConsumptionRepository
 import br.com.paulocosta.f3dmanager.repositories.FilamentRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 
 @Service
@@ -27,22 +28,46 @@ class FilamentService(
     }
 
     @Transactional
-    fun registerConsumption(filamentId: Int, amount: Int) {
-        val filament = getFilamentById(filamentId)
-
-        if (filament.remainingWeight < amount) {
-            throw RuntimeException("Not enough filament available")
+    fun registerConsumption(id: Int, consumedAmount: Int) {
+        val filament = filamentRepository.findById(id).orElseThrow {
+            throw RuntimeException("Filament not found!")
         }
 
-        // Atualiza peso restante
-        filament.remainingWeight -= amount
-        filamentRepository.save(filament)
+        if (consumedAmount <= 0) {
+            throw IllegalArgumentException("Consumed amount must be greater than zero!")
+        }
 
-        // Registra no histórico de consumo
-        val consumption = FilamentConsumption(
-            filament = filament,
-            consumedAmount = amount
-        )
-        filamentConsumptionRepository.save(consumption)
+        if (consumedAmount > filament.remainingWeight) {
+            throw IllegalArgumentException("Not enough filament available!")
+        }
+
+        filament.remainingWeight -= consumedAmount
+        filamentRepository.save(filament)
+    }
+
+    fun updateFilament(filament: Filament) {
+        if (!filamentRepository.existsById(filament.id)) {
+            throw RuntimeException("Filament not found!")
+        }
+        filamentRepository.save(filament)
+    }
+
+    fun registerPurchase(id: Int, purchasedAmount: Int, cost: Double?) {
+        val filament = filamentRepository.findById(id).orElseThrow {
+            throw RuntimeException("Filament not found!")
+        }
+
+        if (purchasedAmount <= 0) {
+            throw IllegalArgumentException("Purchased amount must be greater than zero!")
+        }
+
+        filament.totalWeight += purchasedAmount
+        filament.remainingWeight += purchasedAmount
+
+        if (cost != null) {
+            filament.cost = BigDecimal.valueOf(cost)
+        }
+
+        filamentRepository.save(filament)
     }
 }

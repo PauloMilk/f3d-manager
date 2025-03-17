@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{type.list.title}">Lista de Tipos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-4">
+<h1 class="text-center" th:text="#{type.list.title}">Lista de Tipos</h1>
+
+<div class="d-flex justify-content-between mb-3">
+    <a href="/types/new" class="btn btn-primary" th:text="#{button.addType}">Adicionar Novo Tipo</a>
+    <a href="/" class="btn btn-secondary" th:text="#{button.back}">Voltar</a>
+</div>
+
+<table class="table table-striped">
+    <thead class="table-dark">
+    <tr>
+        <th>ID</th>
+        <th th:text="#{type.name}">Nome</th>
+        <th th:text="#{type.actions}">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="type : ${types}">
+        <td th:text="${type.id}"></td>
+        <td th:text="${type.name}"></td>
+        <td>
+            <a th:href="@{/types/delete/{id}(id=${type.id})}" class="btn btn-danger btn-sm"
+               th:attr="onclick='return confirm(\'' + #{type.confirmDelete} + '\');'"
+               th:text="#{button.delete}">Excluir</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

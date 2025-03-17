@@ -5,4 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface FilamentBrandRepository: JpaRepository<FilamentBrand, Int>
+interface FilamentBrandRepository: JpaRepository<FilamentBrand, Int> {
+    fun existsByName(name: String): Boolean
+}
